@@ -7,6 +7,7 @@ Bài gồm hai phần: **nhóm 3–4 người** thực hành trên một PCD đ�
 | Tài liệu | Đọc khi nào |
 | --- | --- |
 | README.md (file này) | Đầu buổi: biết cần chuẩn bị, làm gì và nộp ở đâu |
+| [Gói Student tải/chạy](bundle/README-STUDENT.md) | Tải ZIP đúng máy, chạy A/B/C không cần GPU |
 | [PRE-LABEL.md](PRE-LABEL.md) | Trước khi sửa cuboid: chạy PointPillars và kiểm lỗi pipeline |
 | [PRE-LABEL-REPORT.md](PRE-LABEL-REPORT.md), [TEAMMATES.md](TEAMMATES.md) | Ghi bằng chứng thí nghiệm và nhận xét từng thành viên |
 | [HUONG-DAN.md](HUONG-DAN.md) | Thao tác nguồn → nộp v1 → QC → sửa và nộp v2 |
@@ -19,15 +20,15 @@ Bài gồm hai phần: **nhóm 3–4 người** thực hành trên một PCD đ�
 
 LC gửi **link portal của ca và tài khoản CVAT**. Đăng nhập portal bằng tài khoản đó; khi mở bài nguồn, CVAT cũng cần đúng tài khoản. CVAT chương trình ở [cvat.note.transformerlabs.ai](https://cvat.note.transformerlabs.ai/), nhưng hãy vào đúng job bằng nút **Mở bài nguồn trong CVAT** trên portal để tránh nhầm ca. Link pilot dành cho LC không thay cho link lớp. Không tự tạo user mới nếu chưa thấy bài.
 
-Phần sửa/QC chỉ cần trình duyệt có WebGL. Phần PointPillars cần một máy chạy Docker CPU và đầu vào được cấp; không cần GPU. Nhóm không có máy phù hợp thực hành cùng máy LC của phòng. LC hỗ trợ theo lượt, không gửi inference cả lớp về ThinkPad. Trước ca, kiểm khả năng chạy với LC; bản đã thử trên Linux Intel/AMD và Mac Apple Silicon không bảo đảm mọi Windows/cấu hình đều chạy được.
+Phần sửa/QC chỉ cần trình duyệt có WebGL. Phần PointPillars dùng [gói Student KITTI](bundle/README-STUDENT.md) trên một máy chạy Docker CPU và Python 3.10+; không cần GPU. Nhóm không có máy phù hợp thực hành cùng máy LC của phòng. LC hỗ trợ theo lượt, không gửi inference cả lớp về ThinkPad. Trước ca, kiểm khả năng chạy với LC; bản đã thử trên Linux Intel/AMD và Mac Apple Silicon không bảo đảm mọi Windows/cấu hình đều chạy được.
 
 ### Dữ liệu nào được phép lấy về?
 
-Repo public này chỉ có tài liệu, sơ đồ minh họa và code. **Không có PCD, checkpoint/image archive, ảnh camera hoặc output Robotaxi.** Gói Robotaxi hiện chỉ cấp riêng LC chạy máy phòng. Học viên không tự tải PCD từ CVAT, không lấy gói của LC về laptop. Nếu LC cấp một đầu vào minh họa khác được phép dùng trên máy nhóm, dùng đúng đầu vào và phạm vi được cấp.
+Repo có tài liệu, code và **một PCD KITTI Student** đã chuyển đổi, ghi nguồn và [giấy phép CC BY-NC-SA 3.0](data/ATTRIBUTION.md). Tải ZIP kèm image đúng kiến trúc từ [Releases](https://github.com/VinUni-AI20k/K4-L2L3-Day13-Robotaxi-LiDAR-3D-Object-Student/releases), không cần LC phát PCD riêng cho bước này. Dữ liệu KITTI chỉ dùng thí nghiệm học thuật phi thương mại và giữ ghi nguồn/giấy phép khi phát bản chuyển đổi. **Không có PCD/ảnh/output Robotaxi.** Gói Robotaxi LC vẫn chỉ cấp máy phòng; học viên không tự tải Robotaxi từ CVAT hay lấy gói LC về laptop.
 
 1. Nhận đúng link/tài khoản của ca từ LC, không dùng tài khoản chung.
 2. Xác nhận nhóm 3–4 người, máy chạy và đầu vào được cấp trước phần thực hành.
-3. Giữ PCD, ảnh, annotation, report đã điền và danh sách thành viên trong kênh riêng do LC chỉ định. Không đăng ảnh/quay màn hình dữ liệu lên repo, VLearn, mạng xã hội hoặc nhóm công khai.
+3. Giữ PCD/ảnh/annotation Robotaxi, report đã điền và danh sách thành viên trong kênh riêng do LC chỉ định; PCD KITTI chỉ chia sẻ theo giấy phép đã ghi. Không đăng ảnh/quay màn hình dữ liệu lên repo, VLearn, mạng xã hội hoặc nhóm công khai.
 4. Không chia sẻ mật khẩu/token; báo lỗi bằng job ID và thông báo chữ.
 
 **Sẵn sàng khi:** portal nhận đúng tài khoản, LC xác nhận môi trường thực hành và bạn biết nơi thu báo cáo private. Nếu chưa có bài hoặc dữ liệu chưa được cấp, báo LC thay vì mượn tài khoản hay tải một scan bất kỳ.
@@ -89,4 +90,4 @@ Phần cá nhân nộp trực tiếp qua CVAT và portal: annotation đã Save, 
 
 **Máy nhóm không chạy Docker?** Làm cùng máy LC phòng theo lượt. Kết quả có sẵn hỗ trợ phân tích nhưng phải ghi rõ chưa trực tiếp chạy.
 
-**Repo public có phải được phép public dữ liệu không?** Không. Public chỉ áp dụng tài liệu và code; quyền dữ liệu/tài khoản/bài làm vẫn riêng theo ca.
+**Repo public có phải được phép public Robotaxi không?** Không. Gói Student KITTI được cấp theo giấy phép riêng; Robotaxi, tài khoản và bài làm vẫn riêng theo ca.

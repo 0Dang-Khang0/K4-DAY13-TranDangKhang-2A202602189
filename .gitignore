@@ -21,10 +21,17 @@ __pycache__/
 *.jpeg
 *.mp4
 input/
-data/
+data/*
 output/
 run-*/
 qc-cases/
 provided-results/
 K4-DAY13-*/
 .DS_Store
+
+# Only the explicitly licensed KITTI adaptation is published.
+!data/demo.pcd
+!data/provenance.json
+!data/ATTRIBUTION.md
+!data/LICENSE.txt
+student-bundles/

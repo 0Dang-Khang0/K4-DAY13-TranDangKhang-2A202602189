@@ -2,18 +2,24 @@
 
 Trước khi chỉnh cuboid, nhóm 3–4 người chạy **PointPillars pretrained KITTI** trên một PCD được phép dùng. Sản phẩm là ba lượt inference thật, ảnh Side/JSON/CSV, các ca QC lỗi z có kiểm soát và nhận xét riêng của từng thành viên. Không train model; không chạy inference cho cả 30 job của từng người.
 
+## Chạy nhanh gói Student
+
+Nhóm có một máy chạy Docker dùng [gói Student](bundle/README-STUDENT.md), tải ZIP đúng kiến trúc tại [Releases](https://github.com/VinUni-AI20k/K4-L2L3-Day13-Robotaxi-LiDAR-3D-Object-Student/releases), giải nén và chạy `student-bundle.py`. Gói có **mẫu KITTI 000008** với [ghi nguồn/giấy phép CC BY-NC-SA 3.0](data/ATTRIBUTION.md), chỉ dùng học thuật phi thương mại; không có dữ liệu Robotaxi. PCD đã đổi z +1.73 m, giữ x/y, bỏ reflectance thật và thêm RGB=0 để dùng adapter hằng hiện tại. Không gọi đây là benchmark KITTI với intensity thật.
+
+Runner thực hiện đúng A/B/C và các ca QC mô tả bên dưới; không phải dựng portal. Bài nhóm dùng KITTI trên laptop, bài cá nhân vẫn sửa/QC Robotaxi trong CVAT/viewer. Có thể chạy lệnh từng lượt ở các mục tiếp theo để tìm hiểu cấu hình, nhưng dùng runner là đường chạy thống nhất, không cần build image tại lớp. Máy không chạy được dùng máy LC theo lượt.
+
 ## 1. Chọn máy và bắt đầu phiên
 
 Một máy trong nhóm chạy Docker CPU. Nhóm không có máy chạy được dùng máy LC của phòng, chạy lần lượt một yêu cầu; học viên vẫn chọn cấu hình và đọc kết quả. Không gửi inference về ThinkPad vận hành CVAT. Không cần GPU.
 
-1. LC cấp đúng image theo kiến trúc máy, một PCD minh họa đã được phép phát và nơi thu báo cáo riêng của phòng. **Repo không cung cấp PCD Robotaxi công khai hoặc link image registry.** Gói private từ ThinkPad chỉ cấp LC chạy máy phòng, chưa cấp quyền phát PCD đó cho học viên. LC phải hoàn tất bước này trước ca, qua kênh riêng của phòng.
+1. Tải ZIP Student đúng kiến trúc ở mục trên và chạy thử trước ca. Image được nạp từ archive trong ZIP, không cần registry; PCD `input/demo.pcd` là KITTI đã chuyển đổi có quyền phân phối theo giấy phép. LC cấp nơi thu báo cáo private. Gói Robotaxi riêng của LC vẫn chỉ chạy máy phòng, không chuyển cho học viên.
 2. Nhóm chọn người vận hành lệnh, người kiểm cấu hình/JSON, người xem hình học; người thứ tư ghi log. Đổi vai giữa các lượt. Mỗi người viết nhận xét riêng.
 3. Mỗi thành viên đăng nhập portal, bấm **Bắt đầu phiên 240 phút** khi bắt đầu phần này. Không đợi hết thí nghiệm mới bắt đầu đồng hồ.
 4. Kiểm image/PCD chạy được trước buổi học. Nếu có lỗi setup, chuyển sang máy LC; không dành cả giờ để build.
 
 Phân bổ gợi ý trong 240 phút: 60 phút thực hành pre-label, 115 phút sửa nguồn, 50 phút QC, 15 phút phản hồi/tổng kết. Các chặng nguồn/QC có thể xen kẽ; feedback muộn vẫn theo hạn riêng trên portal. 30 job là lượng phân công, không phải lời bảo đảm hoàn thành đủ 30 frame full-range và 30 QC trong thời gian còn lại.
 
-Robotaxi thật vẫn ở CVAT/viewer được cấp; quyền tải tạm trên ThinkPad không tự áp dụng cho laptop hoặc máy LC. Không lấy PCD từ CVAT về để làm phần này khi chưa được cấp phép. Bộ minh họa phải phù hợp định dạng và hệ tọa độ script; không dùng một scan bất kỳ rồi mặc định nó có gốc mặt đất như Robotaxi.
+Robotaxi thật vẫn ở CVAT/viewer được cấp; quyền tải tạm trên ThinkPad không tự áp dụng cho laptop hoặc máy LC. Dùng KITTI của gói Student; không lấy PCD Robotaxi từ CVAT về để làm phần này khi chưa được cấp phép. Bộ minh họa phải phù hợp định dạng và hệ tọa độ script; không dùng một scan bất kỳ rồi mặc định nó có gốc mặt đất như Robotaxi.
 
 **Checkpoint:** có PCD được cấp, đúng image, máy chạy được và vai trò nhóm; đồng hồ phiên đã bắt đầu. Thiếu đầu vào thì báo LC, chưa chuyển thành bài chỉ đọc kết quả mà ghi là đã chạy.
 
@@ -81,7 +87,7 @@ z_source = z_model  + z_ground + delta
 3. Kiểm phạm vi: Side là hình chiếu toàn scene x-z, có thể chồng xe khác y. Không dùng nó một mình để duyệt hình học từng hộp; sau khi pipeline hợp lý còn cần Top/Side/Front và camera.
 4. Ghi những gì chưa đủ bằng chứng. Không chọn cấu hình chỉ vì nhiều hộp hơn hoặc score cao hơn.
 
-PCD bài Robotaxi thiếu intensity thật; script dùng kênh hằng số theo lớp ở hai lượt đọc. RGB không phải intensity. Nếu bộ minh họa dùng định dạng khác, LC phải xác nhận adapter trước; không gọi các hằng số là dữ liệu intensity được phục hồi. Đường `z=0` trên ảnh Side là đường tham chiếu của plot, không chứng nhận mặt đường cục bộ mọi vị trí.
+PCD Robotaxi thiếu intensity thật; PCD KITTI Student chủ đích bỏ reflectance nguồn để thực hành cùng adapter. Script dùng kênh hằng số theo lớp ở hai lượt đọc. RGB không phải intensity. Nếu bộ minh họa dùng định dạng khác, LC phải xác nhận adapter trước; không gọi các hằng số là dữ liệu intensity được phục hồi. Đường `z=0` trên ảnh Side là đường tham chiếu của plot, không chứng nhận mặt đường cục bộ mọi vị trí.
 
 **Checkpoint:** mỗi người giải thích được vì sao đổi `delta` trước inference khác với dịch hộp sau inference; nêu được một quan sát B/C có chứng cứ từ output, không chỉ đoán theo lý thuyết.
 
@@ -116,6 +122,6 @@ Dùng [mẫu báo cáo](PRE-LABEL-REPORT.md). Nhóm tạo thư mục private `K4
 
 Nếu dùng kết quả có sẵn vì máy lỗi, LC ghi nhận phần phân tích đã làm và hẹn lượt chạy thật trên máy phòng khi có điều kiện; chưa chứng nhận kỹ năng chạy model. Không trừ điểm tự động vì chờ máy. Phần này dùng kiểm tra formative, chưa gắn điểm chính thức hoặc bảng điểm công khai.
 
-PCD minh họa trên laptop có thể khác frame Robotaxi của 30 job. **Không nạp prediction demo vào job Robotaxi khác frame.** Pre-annotations cho Robotaxi do người có quyền chuẩn bị, xác minh frame/schema/transform và import; học viên bắt đầu từ các hộp đó. Khi ca minh họa được cấp riêng trong CVAT, chỉ LC/operator import prediction gốc đúng frame, không import ca lỗi có kiểm soát.
+PCD KITTI minh họa trên laptop khác frame Robotaxi của 30 job. **Không nạp prediction demo vào job Robotaxi khác frame.** Pre-annotations cho Robotaxi do người có quyền chuẩn bị, xác minh frame/schema/transform và import; học viên bắt đầu từ các hộp đó. Khi ca minh họa được cấp riêng trong CVAT, chỉ LC/operator import prediction gốc đúng frame, không import ca lỗi có kiểm soát.
 
 **Hoàn tất:** LC đã nhận báo cáo, từng thành viên có nhận xét, việc chạy thật/có sẵn được ghi đúng và nhóm biết khi nào phải dừng pipeline trước khi sửa cuboid.

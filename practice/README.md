@@ -1,6 +1,6 @@
 # Code CPU cho phần PointPillars
 
-Code được tách từ bộ lab Day 13, dùng để thực hành theo [PRE-LABEL.md](../PRE-LABEL.md). Không có dữ liệu hoặc image archive trong repo. Đầu vào phải do LC cấp đúng quyền; bản Robotaxi riêng của LC không được phát cho laptop học viên.
+Code được tách từ bộ lab Day 13, dùng để thực hành theo [PRE-LABEL.md](../PRE-LABEL.md). Đầu vào Student là [KITTI 000008 đã chuyển đổi](../data/ATTRIBUTION.md); image archive nằm trong ZIP Releases. Xem [gói tải/chạy](../bundle/README-STUDENT.md). Bản Robotaxi riêng của LC không được phát cho laptop học viên.
 
 - `preannotate.py`: đọc PCD, inference checkpoint KITTI, đổi tọa độ và xuất JSON/Side/CSV.
 - `pipeline-qc-cases.py`: tạo các ca lỗi z có kiểm soát từ prediction; không chạy model hoặc tạo reference.
