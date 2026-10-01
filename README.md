@@ -10,6 +10,7 @@ Bài gồm hai phần: **nhóm 3–4 người** thực hành trên một PCD đ�
 | [Gói Student tải/chạy](bundle/README-STUDENT.md) | Tải ZIP đúng máy, chạy A/B/C không cần GPU |
 | [PRE-LABEL.md](PRE-LABEL.md) | Trước khi sửa cuboid: chạy PointPillars và kiểm lỗi pipeline |
 | [PRE-LABEL-REPORT.md](PRE-LABEL-REPORT.md), [TEAMMATES.md](TEAMMATES.md) | Ghi bằng chứng thí nghiệm và nhận xét từng thành viên |
+| [Hướng dẫn nạp pre-label có hình](HUONG-DAN-NAP-PRE-LABEL.md) | Đăng nhập → nạp Robotaxi đúng job → chỉnh → QC → v2 |
 | [HUONG-DAN.md](HUONG-DAN.md) | Thao tác nguồn → nộp v1 → QC → sửa và nộp v2 |
 | [LABEL_GUIDELINE.md](LABEL_GUIDELINE.md) | Trước frame đầu tiên và khi không chắc class/hình học |
 | [RUBRIC.md](RUBRIC.md) | Tự kiểm bài và hiểu LC kiểm tra những gì |

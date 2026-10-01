@@ -1,5 +1,7 @@
 # Ngày 13 — Sửa cuboid nguồn và QC chéo trên portal
 
+Xem [hướng dẫn từng bước có hình](HUONG-DAN-NAP-PRE-LABEL.md) để tìm nút bắt đầu phiên, nạp pre-label, nộp QC và phản hồi.
+
 Lab có hai phần: **thực hành PointPillars theo nhóm 3–4**, rồi **chỉnh/QC cá nhân**. Mỗi người có 30 job nguồn, mỗi job một frame. Bạn sửa cuboid trong CVAT, Save từng job rồi nộp qua portal để người khác QC. Bạn cũng nhận bài QC ngẫu nhiên và phản hồi nhận xét trên bài của mình. Phần chỉnh/QC không nộp file; phần PointPillars có báo cáo nhóm private và nhận xét riêng từng người.
 
 Coach cung cấp địa chỉ portal và tài khoản CVAT của ca học. Đăng nhập portal bằng tài khoản đó. Robotaxi và ảnh camera mở trong hệ thống; không tải dữ liệu về máy. Trước khi chỉnh cuboid, nhóm làm [phần PointPillars bắt buộc](PRE-LABEL.md) trên một PCD minh họa được cấp, bằng Docker CPU của máy nhóm hoặc máy LC phòng. Không cần GPU và không gửi inference lớp về ThinkPad. Job nguồn mới trong CVAT chương trình được tạo **trống theo mặc định**; bài đã import/chỉnh trước đó được giữ nguyên. Trước khi chỉnh job trống, bấm **Nạp pre-label cho job này** trên portal để lấy prediction Robotaxi đúng frame do LC chạy trước. Không có inference từ xa: bước tự chạy A/B/C làm riêng trên máy nhóm. Hộp dự đoán sau import chỉ là điểm khởi đầu, chưa phải đáp án. Không import prediction KITTI demo vào Robotaxi. Đọc [quy tắc gán nhãn và QC](LABEL_GUIDELINE.md) trước khi sửa frame đầu tiên.
