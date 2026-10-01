@@ -166,6 +166,13 @@ Dùng [mẫu báo cáo](PRE-LABEL-REPORT.md). Nhóm tạo thư mục private `K4
 
 Nếu dùng kết quả có sẵn vì máy lỗi, LC ghi nhận phần phân tích đã làm và hẹn lượt chạy thật trên máy phòng khi có điều kiện; chưa chứng nhận kỹ năng chạy model. Không trừ điểm tự động vì chờ máy. Phần này dùng kiểm tra formative, chưa gắn điểm chính thức hoặc bảng điểm công khai.
 
-PCD KITTI minh họa trên laptop khác frame Robotaxi của 30 job. **Không nạp prediction KITTI demo vào job Robotaxi.** Job nguồn Robotaxi mới trong CVAT chương trình được tạo **trống theo mặc định**; bài đã import/chỉnh trước đó được giữ nguyên. Trước khi chỉnh, học viên yêu cầu LC/operator hỗ trợ chạy và import prediction cho đúng frame qua đường được cấp quyền, xác minh job ID/frame/schema/transform rồi kiểm các hộp đã import. Portal hiện chưa có nút chạy model hoặc import prediction; việc này cần LC/operator hỗ trợ cho Robotaxi hạn chế, không phải dịch vụ model tự phục vụ. Khi ca minh họa được cấp riêng trong CVAT, chỉ LC/operator import prediction gốc đúng frame, không import ca lỗi có kiểm soát.
+PCD KITTI minh họa trên laptop khác frame Robotaxi của 30 job. **Không nạp prediction KITTI demo vào job Robotaxi.** Job nguồn Robotaxi mới được tạo trống; bài đã có annotation được giữ nguyên. Để lấy pre-label cho đúng job:
+
+1. Bắt đầu phiên trên portal và tìm thẻ **Bài nguồn** của mình. Nếu job CVAT đang mở và chưa chỉnh, đóng tab đó trước khi nạp.
+2. Bấm **Nạp pre-label cho job này**. Portal lấy prediction Robotaxi đã được LC chạy trước, kiểm đúng frame/schema/quyền và nạp vào CVAT; không cần tải PCD Robotaxi về laptop.
+3. Khi portal báo đã nạp, bấm **Mở bài nguồn trong CVAT** để xem bản vừa lưu. Nếu tab cũ còn mở, không Save dữ liệu cũ đè lên bản mới.
+4. Rà và sửa các hộp, Save rồi nộp vào hàng đợi QC như hướng dẫn cá nhân.
+
+Nút chỉ dành cho job nguồn của mình, còn `draft`, trong phiên đang hoạt động và chưa có annotation. Nếu job đã có hộp, đã nộp hoặc kết quả import chưa rõ, hệ thống từ chối; báo LC kiểm tra, không xóa bài để thử lại. Không tự nạp khi mở trang. Prediction nạp là gợi ý từ **lượt chạy LC có sẵn**, không phải chứng nhận học viên đã tự chạy model hay reference đúng. Phần tự chạy A/B/C theo nhóm vẫn phải làm riêng.
 
 **Hoàn tất:** LC đã nhận báo cáo, từng thành viên có nhận xét, việc chạy thật/có sẵn được ghi đúng và nhóm biết khi nào phải dừng pipeline trước khi sửa cuboid.
