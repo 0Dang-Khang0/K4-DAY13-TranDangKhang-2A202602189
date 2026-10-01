@@ -16,14 +16,16 @@ Giữ bản đã điền ngoài Git, trong thư mục nhóm private do LC thu. �
 
 ## Ba lượt inference thật
 
+A/B/C là ba lượt trên cùng PCD. Runner chạy đủ ba lượt từ một lệnh. Lấy **Số hộp** từ `n_boxes`, **mean_z** từ `mean_z` trong `run-A/B/C/summary.csv`; không tự tính lại hoặc đoán. `mean_z` không phải điểm chất lượng. Mở `side-*.png`, đối chiếu `boxes-*.json` để ghi quan sát. Số hộp không phải đáp án cần khớp nhóm khác.
+
 | Lượt | delta | Pillar XY | Số hộp | mean_z | File JSON/Side/CSV | Quan sát có bằng chứng |
 | --- | --- | --- | --- | --- | --- | --- |
 | A | 0 | 0.16 | | | | |
 | B | 1.73 | 0.16 | | | | |
 | C | 1.73 | 0.32 | | | | |
 
-- A/B: thay input trước model có khác dịch cùng một hằng số cho output không? Vì sao?
-- B/C: thấy gì khi đổi pillar? Có đủ bằng chứng để nói cấu hình nào tốt hơn không?
+- A/B — chỉ đổi delta: A có … hộp; B có … hộp. Ảnh/file/vùng … khác ở … . Đây là chạy lại model trên input khác, không chỉ dịch hộp cũ; điều em còn chưa chắc là … .
+- B/C — chỉ đổi pillar: B có … hộp; C có … hộp. Ảnh/file/vùng … khác ở … . Số lượng/lớp/vị trí thay đổi như sau: … . Có đủ bằng chứng để kết luận tốt hơn không? … .
 - Giới hạn ROI và góc Side ảnh hưởng cách đọc miss/yaw thế nào?
 - JSON nào còn chưa đủ cơ sở để import? Cần kiểm gì tiếp?
 

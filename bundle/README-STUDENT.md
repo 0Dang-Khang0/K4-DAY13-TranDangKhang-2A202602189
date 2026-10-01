@@ -15,6 +15,10 @@ Cần Docker Desktop Windows/Mac hoặc Docker Engine Linux, **Python 3.10+ trê
 
 ## 2. Chạy A/B/C
 
+**A/B/C là ba lần chạy cùng `input/demo.pcd` bằng PointPillars, không phải ba bài/nhóm hoặc ba model.** Một máy chạy đủ ba lượt. Delta là lượng dịch chiều cao z trước model; pillar XY là cạnh ô vuông gom điểm, không phải kích thước cuboid. A/B chỉ đổi delta; B/C chỉ đổi pillar. B là mốc so sánh, chưa phải đáp án đúng. C dùng lại checkpoint, không train lại cho pillar lớn.
+
+**Chỉ cần chạy một lệnh dưới đây.** Script tự chạy A, B, C; không cần chạy thủ công ba lần.
+
 Mở Terminal/PowerShell **trong thư mục giải nén**. Runner kiểm hash, kiến trúc native trước load, load image đúng ID và chạy tuần tự. Dùng thư mục output **mới nằm ngoài gói**; không ghi đè kết quả lần trước. Chạy không dùng mạng trong container, input/code read-only, tối đa 4 CPU/4 GB RAM/container.
 
 Mac/Linux:
@@ -43,7 +47,9 @@ Giữ checkpoint KITTI, score 0.3 và front ROI. Runner không train hoặc tự
 
 ## 3. Phân tích và báo cáo
 
-Mở JSON, ảnh Side và CSV. So A/B và B/C bằng quan sát có dẫn file; nhiều hộp hơn hoặc confidence cao hơn không tự là đúng hơn. Ca QC giữ chuyển đổi nguồn / lệch cả batch / lệch một hộp là biến đổi có kiểm soát từ prediction thật B, không phải detector chạy thêm hoặc đáp án chuẩn. Không import `case-*.json` vào CVAT; không nhập prediction demo vào frame Robotaxi.
+Mở thư mục output bên cạnh gói. Trong `run-A`, `run-B`, `run-C`, đọc **`summary.csv` → cột `n_boxes`** để biết số hộp; `mean_z` là cao độ trung bình tâm hộp, không phải điểm chất lượng. Mở **`side-*.png`** để tìm vùng khác nhau; đọc **`boxes-*.json`** để kiểm cấu hình, nhãn và tọa độ. Ghi tên file/vùng làm bằng chứng, không cần sửa JSON. **A/B/C là inference thật; `qc-cases` là ca lỗi được tạo từ B, không phải ba lần chạy thêm.**
+
+So A/B và B/C bằng quan sát có dẫn file; nhiều hộp hơn hoặc confidence cao hơn không tự là đúng hơn. Ca QC giữ chuyển đổi nguồn / lệch cả batch / lệch một hộp là biến đổi có kiểm soát từ prediction thật B, không phải detector chạy thêm hoặc đáp án chuẩn. Không import `case-*.json` vào CVAT; không nhập prediction demo vào frame Robotaxi.
 
 1. Ghi số hộp, class, mean_z và quan sát A/B, B/C vào `PRE-LABEL-REPORT.md`.
 2. Đối chiếu ca lỗi: cùng lệch cả batch thì dừng để kiểm transform/pipeline; một hộp lệch thì kiểm nhiều view/đối tượng; không đủ chứng cứ thì ghi chưa chắc.
